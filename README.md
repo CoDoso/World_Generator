@@ -1,9 +1,7 @@
-+----------------------------------------------------------------+
-| Latest Updates for the every growing Code for Point generation |
-+----------------------------------------------------------------+----------------------------------------
+Latest Updates for the every growing Code for Point generation 
+
 Due to me adding new shit pretty much everyday keeping up with all the changes is pretty much impossibe.
 Thats why im gonna Update a List of Features in here to showcase everything that is being Generated.
---------------------------------------------------------------------------------------------------------
 
 -  -  Features:  -  -  -  -  -  -
 - Procedural Generation of a User specified Grid size of Points
