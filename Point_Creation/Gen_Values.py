@@ -8,17 +8,17 @@ Biomes = ["Grassland", "Forest", "Sand"]
 Elevations = ["Flat", "Hills", "Steep", "Water", "Uninhabitable"]
 Natural_Wonders = [
     # Military
-    {"High Hills": {"Type": "Military", "Modifier": "ToDo [Local] Fort Level +1"}},
+    {"High Hills": {"Type": "Military", "Modifier": "ToDo [Local] Fort Level +1"}},  # 0
     # Symbolic
-    {"Great Falls": {"Type": "Symbolic", "Modifier": "ToDo [Faction] Prestige +10"}},
-    {"Volcano Field": {"Type": "Symbolic", "Modifier": "ToDo [Both] Allows Volcano Eruption Event & *2 Attrition"}},
+    {"Great Falls": {"Type": "Symbolic", "Modifier": "ToDo [Faction] Prestige +10"}},  # 1
+    {"Volcano Field": {"Type": "Symbolic", "Modifier": "ToDo [Both] Allow Volcano Eruption Event & *2 Attrition"}},  # 2
     # Economic
-    {"Desert Floodplains": {"Type": "Economic", "Modifier": "ToDo [Local] +15 Fertile Lands"}},
-    {"Senlows Coal Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +50 Coal"}},
-    {"Great Iron Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Iron"}},
-    {"Great Coal Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Coal"}},  # ToDo
-    {"Great Copper Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Copper"}},
-    {"Great Tin Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Tin"}},
-    {"Bronze Mountain": {"Type": "Economic", "Modifier": "ToDo [Local] +40 Copper&Tin"}}]
+    {"Bronze Mountain": {"Type": "Economic", "Modifier": "ToDo [Local] +40 Copper&Tin"}},  # 3
+    {"Desert Floodplains": {"Type": "Economic", "Modifier": "ToDo [Local] +15 Fertile Lands"}},  # 4
+    {"Senlows Coal Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +50 Coal"}},  # 5
+    {"Great Iron Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Iron"}},  # 6
+    {"Great Coal Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Coal"}},  # 7
+    {"Great Copper Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Copper"}},  # 8
+    {"Great Tin Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Tin"}}]  # 9
 # Modifier: Faction Variable(Global Modifiers or "Local"(the Point)) Increase | (Modifiers Inspiration: EU4)
 Remaining_Wonders = Natural_Wonders
