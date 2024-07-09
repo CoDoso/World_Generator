@@ -16,6 +16,7 @@ def create_points():
             else:
                 x = 1
                 y += 1
+            SubGridLocation = random.randint(1, 9)
 
         # Biome Assigning
         if True:
@@ -197,7 +198,8 @@ def create_points():
                     Water_Status = "Waterfall"
                     if random.randint(0, 20) == 10:
                         for Wonder in Game.Remaining_Wonders:
-                            if Wonder == {"Great Falls": {"Type": "Symbolic", "Modifier": "ToDo [Faction] Prestige +10"}}:
+                            if Wonder == {
+                                "Great Falls": {"Type": "Symbolic", "Modifier": "ToDo [Faction] Prestige +10"}}:
                                 Wonders.append(Wonder)
                                 Game.Remaining_Wonders.remove(Wonder)  # Great Falls Monument(Wonder) creation
                                 print(f"Great Falls ID: {i}")
@@ -269,7 +271,6 @@ def create_points():
             Score = 0
             Fertile_Land = 0
             Forestry_Land = 0
-            Infrastructure = 0
             Wild_Hunt = 0
             Berrys = 0  # Base Values
             Mushrooms = 0  # This is for convenience
@@ -344,17 +345,17 @@ def create_points():
 
                 case "Water":
                     Score += 5
-                    Infrastructure += 5
                     # River Gold
-                    GoldValues = [random.randint(1, 100)]
-                    while True:
-                        New_Value = random.randint(1, 10)
-                        if New_Value not in GoldValues:  # 20%
-                            GoldValues.append(New_Value)
-                        if len(GoldValues) == 3:
-                            break
-                    if Chance in GoldValues:
-                        Gold += random.randint(1, 10)
+                    if Water_Status == "River":
+                        GoldValues = [random.randint(1, 100)]
+                        while True:
+                            New_Value = random.randint(1, 10)
+                            if New_Value not in GoldValues:  # 20%
+                                GoldValues.append(New_Value)
+                            if len(GoldValues) == 3:
+                                break
+                        if Chance in GoldValues:
+                            Gold += random.randint(1, 10)
 
         if New_Elevation == "Uninhabitable":
             # These Points are too hostile for life to inhabit the land
@@ -378,6 +379,7 @@ def create_points():
                     "Coordinates": {  # These coordinates are calculable and are a
                         "x": x,  # way to reduce the size of the Data recorded
                         "y": y  # If we however change World-Gen all previous games will be lost
+                        "SubGrid_Location": SubGridLocation
                     },
                     "Terrain": {
                         "Biome": New_Biome,
@@ -393,17 +395,21 @@ def create_points():
             }
         else:
             Resources = [
-                {"Building Slots": 5 * Score},
-                {"Fertile Land": Fertile_Land},  # The Reason why both Fertility and Forestry are here
-                {"Forestry Land": Forestry_Land},  # is incase there's tech to create Fertile or Forestry Land
-                {"Infrastructure": Infrastructure}
+                {"Building Slots": 5 * Score}
             ]
 
-            Resource_List = ["Iron", "Coal", "Copper", "Tin", "Wild Hunt", "Berrys",  # This is for convenience
+            Resource_List = ["Fertility", "Forestry", "Iron", "Coal", "Copper", "Tin", "Wild Hunt", "Berrys",
+                             # This is for convenience
                              "Mushrooms", "Mana Crystals", "Gems", "Gold"]
 
             for rs in Resource_List:
                 match rs:  # This is to check if the Resource exists in that Point
+                    case "Fertility":
+                        if Fertile_Land != 0:
+                            Resources.append({"Fertile Land": Fertile_Land})
+                    case "Forestry":
+                        if Forestry_Land != 0:
+                            Resources.append({"Forestry Land": Forestry_Land})
                     case "Iron":  # and if not don't put it into the Data
                         if Iron != 0:
                             if random.randint(0, int(Game.worldsize * 0.085)) == 5:
@@ -493,9 +499,11 @@ def create_points():
             New_Point = {
                 "Point": {
                     "Point_ID": i,
+                    "Connections": "",
                     "Coordinates": {  # These coordinates are calculable and are a
                         "x": x,  # way to reduce the size of the Data recorded
-                        "y": y  # If we however change World-Gen all previous games will be lost
+                        "y": y,  # If we however change World-Gen all previous games will be lost
+                        "SubGrid_Location": SubGridLocation,
                     },
                     "Terrain": {
                         "Biome": New_Biome,
@@ -511,4 +519,53 @@ def create_points():
 
     with open("points.yml", 'w') as f:
         yaml.safe_dump(Game.points, f, default_flow_style=False, sort_keys=False)
-        
+
+
+def create_factions():
+    New_Race = ""
+    New_Capital = [0, 0]
+    List_of_Capitals = []
+    List_of_Races = []
+
+    Allowed_Races = int(Game.faction_amount / 3)  # 16 Faction = 5 Races (Small World)
+
+    for i in range(1, Game.faction_amount + 1):
+        while New_Capital in List_of_Capitals:
+            New_Capital = [random.randint(1, Game.worldsize_input_x), random.randint(1, Game.worldsize_input_y)]
+
+        while New_Race not in List_of_Races and len(List_of_Races) == Allowed_Races:
+            New_Race = Game.Races[int(random.randint(0, len(Game.Races)))]
+
+        if i == 1:
+            Behavior = "Player"
+        else:
+            Behavior = "AI"
+
+        match New_Race:
+            case "Human":
+                Behavior = "Technological"
+            case "Elf":
+                Behavior = "Diplomatic"
+            case "Dwarf":
+                Behavior = "Economic"
+            case "Orc":
+                Behavior = "Militaristic"
+            case "Fallen":
+                Behavior = "Militaristic"
+
+        Faction = {
+            "Faction": {
+                "Faction Name": "Name",
+                "Faction_ID": i,
+                "Faction_Behavior": Behavior,  # Player, etc
+                "Race": "",
+                New_Race: {},
+                "Temporary_Modifiers": {},  # Modifier + Turns left
+                "Modifiers": {}  # to safe Lines every Modifier that isn't in here is the default Value
+            }
+        }
+
+        Game.factions.append(Faction)
+
+    with open("factions.yml", 'w') as f:
+        yaml.safe_dump(Game.factions, f, default_flow_style=False, sort_keys=False)
