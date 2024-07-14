@@ -12,13 +12,11 @@ Thats why im gonna Update a List of Features in here to showcase everything that
 - Uninhabitable Points have a Army Attrition Mechanic through Army Limit. If that Limit is reached, determend by Biome the Army will take constant Damage every Turn.
 
 **New Stuff:**
-- Shit ton of Bugfixes: Fixed World Generation Bugs, Fixed Wonders Bug
-- Reduced Data size of Points
-- Added more Wonders
+- Merging of Data into Safe-Games
 
 **In Progress:**
-- Faction Creation
+- Point Overhaul
 
 **Planned Stuff:**
 - Citys Creation (Function)
-- Algorithm to complile all Files into one single safe-game and to decompile that safe back into their individual Files (Point, City and Faction Data, later also Military/Armys)
+- Army Data
