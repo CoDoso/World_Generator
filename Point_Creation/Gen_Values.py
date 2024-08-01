@@ -2,16 +2,16 @@
 #                                            '---[ Points ]---'
 #
 # Worldsize
-worldsize_input_x = int(input("Insert X size for the World size: "))
-worldsize_input_y = int(input("Insert Y size for the World size: "))
-worldsize = worldsize_input_x * worldsize_input_y
+worldsize_input_x: int = int(input("Insert X size for the World size: "))
+worldsize_input_y: int = int(input("Insert Y size for the World size: "))
+worldsize: int = worldsize_input_x * worldsize_input_y
 #
 # Point Data
-rows_left = worldsize_input_y
-points = []
-Biomes = ["Grassland", "Forest", "Sand"]
-Elevations = ["Flat", "Hills", "Steep", "Water", "Uninhabitable"]
-Natural_Wonders = [
+rows_left: int = worldsize_input_y
+points: list = []
+Biomes: list = ["Grassland", "Forest", "Sand"]
+Elevations: list = ["Flat", "Hills", "Steep", "Water", "Uninhabitable"]
+Natural_Wonders: list = [
     # Military
     {"High Hills": {"Type": "Military", "Modifier": "ToDo [Local] Fort Level +1"}},  # 0
     # Symbolic
@@ -26,55 +26,70 @@ Natural_Wonders = [
     {"Great Copper Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Copper"}},  # 8
     {"Great Tin Deposit": {"Type": "Economic", "Modifier": "ToDo [Local] +30 Tin"}}]  # 9
 # Modifier: Faction Variable(Global Modifiers or "Local"(the Point)) Increase | (Modifiers Inspiration: EU4)
-Remaining_Wonders = Natural_Wonders
+Remaining_Wonders: list = Natural_Wonders
+#
+Natural_Buildings: bool = False
+Mountains: bool = False   # These 3 are not implemented yet
+Oceans: bool = False
 #
 # -------------------------------------------------------------------------------------------------------------------
 #                                           '---[ Factions ]---'
 # Faction Diversity
-faction_amount = int(input("Amount of Factions at Gamestart: "))
+faction_amount: int = int(input("Amount of Factions at Gamestart: "))
 #
 # Races
-Races = ["Human", "Elf", "Dwarf", "Orc", "Fallen"]
+Races: list = ["Human", "Elf", "Dwarf", "Orc", "Fallen"]
 #
 # Faction Data
-factions = []
+factions: list = []
+#
+# -------------------------------------------------------------------------------------------------------------------
+#                                           '---[ Armys ]---'
+armys: list = []
 #
 # -------------------------------------------------------------------------------------------------------------------
 #                                           '---[ Modifiers ]---'
 # Economy
-City_Creation_cost = 350  # Cost to build a City in a Point
-Tax_Multiplier = 1
-Production_Efficiency = 1
-Tariff_Multiplier = 1
+City_build_cost: float = 350  # Cost to build/Expand a City in a new Point
+Tax_Multiplier: float = 1
+Production_Efficiency: float = 1
+Tariff_Multiplier: float = 1
+
 # Technology
-Research_Speed = 100
-Research_Queues = 1  # Like in Call of Dragons
+Research_Speed: float = 100
+Research_Queues: int = 1
+
 # Military
-Army_Efficiency = 100  # Eu4 Morale
-Army_Damage_Dealt = 100  # Eu4 Discipline
+Army_Morale: float = 100        # Eu4 Morale, low after a long March but high after a Victory or Training session | Max: 100
+Army_Efficiency: float = 100    # Combat "Readiness", low after a Fight but high after a good nights rest         | Max: 100
+Army_Experience: float = 20     # Eu4 Army Professionalism, but for an individual Army                            | Max: 100
+Army_EXP_Decay: float = 0.5     # Amount of Experience an Army looses every turn
 
-Levy_Multiplier = 1  # similar to Eu4 "Manpower" Modifiers
-Levy_Damage = 25
-Levy_Defense = 30  # Levy's   (Stats similar to CK3)
-Levy_Pursuit = 0
+# Army_Damage_Dealt: float = (Army_Morale + Army_Efficiency) * (Army_Experience * 0.375) + 1)  # min 0, max 275
+#                                   # min 0, max 200              # min 1, max 1.375
 
-Knight_Damage = 60
-Knight_Defense = 110  # Knight
-Knight_Pursuit = 0
+Levy_Multiplier: float = 1
+Levy_Damage: float = 25
+Levy_Defense: float = 30  # Levy
+Levy_Pursuit: float = 0
 
-Archer_Damage = 75
-Archer_Defense = 20  # Archer
-Archer_Pursuit = 5
+Knight_Damage: float = 60
+Knight_Defense: float = 100  # Knight ()
+Knight_Pursuit: float = 0
 
-Mage_Damage = 80
-Mage_Defense = 15    # Mage
-Mage_Pursuit = 5
+Archer_Damage: float = 75
+Archer_Defense: float = 20  # Archer
+Archer_Pursuit: float = 5
 
-Cavalry_Damage = 60
-Cavalry_Defense = 75  # Cav
-Cavalry_Pursuit = 25
+Mage_Damage: float = 80
+Mage_Defense: float = 15    # Mage
+Mage_Pursuit: float = 5
+
+Cavalry_Damage: float = 60
+Cavalry_Defense: float = 75  # Cav
+Cavalry_Pursuit: float = 25
 
 # Diplomatic
-Reputation = 50
-Prestige = 0  # Affect likeness to Ally, Relations, etc
-Max_Allies = 3
+Reputation: int = 50
+Prestige: int = 0      # Affects likeness to Ally, Relations, etc
+Max_Allies: int = 3
