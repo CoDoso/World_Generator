@@ -1,5 +1,5 @@
 import random
-import yaml
+import json
 import Gen_Values as Game
 import Unit_templates as Unit
 
@@ -433,8 +433,8 @@ def create_points():
             }
         Game.points.append(New_Point)
 
-    with open("points.yml", 'w') as f:
-        yaml.safe_dump(Game.points, f, default_flow_style=False, sort_keys=False)
+    with open("points.json", 'w') as f:
+        json.dump(Game.points, f)
 
 
 def create_factions():
@@ -449,7 +449,7 @@ def create_factions():
     Allowed_Races_count: int = int(Game.faction_amount / 3)  # 16 Faction = 5 Races (Small World)
 
     for i in range(1, Game.faction_amount + 1):
-        while New_Capital not in List_of_Capitals:
+        while New_Capital in List_of_Capitals:
             New_Capital = [random.randint(1, Game.worldsize_input_x), random.randint(1, Game.worldsize_input_y)]
 
         New_Race = Game.Races[random.randint(0, len(Game.Races) - 1)]
@@ -495,8 +495,10 @@ def create_factions():
         create_Army(i, New_Capital[0], New_Capital[1], "Combat", [[3, Faction_Units[0]], [1, Faction_Units[1]], [1, Faction_Units[3]]])  # 3 Knights, 1 Archer, 1 Cavalry of their respective Race
         create_Army(i, New_Capital[0], New_Capital[1], "Scout", [[1, Unit.Scout]])
 
-    with open("factions.yml", 'w') as f:
-        yaml.safe_dump(Game.factions, f, default_flow_style=False, sort_keys=False)
+    with open("factions.json", 'w') as f:
+        json.dump(Game.factions, f)
+    with open("armys.json", 'w') as f:
+        json.dump(Game.armys, f)
 
 
 def create_Army(Owner_ID: int, x: int, y: int, Type: str, Units: list):
@@ -517,5 +519,4 @@ def create_Army(Owner_ID: int, x: int, y: int, Type: str, Units: list):
             }
         }
     }
-
     Game.armys.append(Army)
