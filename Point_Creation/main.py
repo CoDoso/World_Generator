@@ -1,6 +1,5 @@
 import Generator as Generator
-import Data
-import yaml
+import json
 import os
 
 
@@ -11,26 +10,30 @@ if __name__ == "__main__":
 
         Factions = []
         Points = []
+        Armys = []
 
-        with open("factions.yml", 'r') as file:
-            data = yaml.safe_load(file)
-            for item in data:
+        with open("factions.json", 'r') as file:
+            for item in file:
                 Factions.append(item)
 
-        with open("points.yml", 'r') as file:
-            data = yaml.safe_load(file)
-            for item in data:
+        with open("points.json", 'r') as file:
+            for item in file:
                 Points.append(item)
+
+        with open("armys.json", 'r') as file:
+            for item in file:
+                Armys.append(item)
 
         Game_Data = {
             "Factions": Factions,
-            "Armys": "",
+            "Armys": Armys,
             "Points": Points,
             "Citys": ""
         }
 
-        with open(f"safes/{str(input('Insert File Name: '))}.yml", 'w') as data:
-            yaml.safe_dump(Game_Data, data, default_flow_style=False, sort_keys=False)
+        with open(f"safes/{str(input('Insert File Name: '))}.json", 'w') as data:
+            json.dump(Game_Data, data)
 
-        os.remove("points.yml")
-        os.remove("factions.yml")
+        os.remove("points.json")
+        os.remove("factions.json")
+        os.remove("armys.json")
