@@ -611,4 +611,4 @@ Factions_and_Armys = create_factions(build_data)
 with open(f"safes/{File_Name}.json", 'w') as data:
     json.dump({"Settings": [], "Factions": Factions_and_Armys[0], "Armys": Factions_and_Armys[1], "Points": Points, "Citys": ""}, data, )
 
-os.remove(f"safes/bfo-{File_Name}.json")
+os.remove(f"saves/bfo-{File_Name}.json")
