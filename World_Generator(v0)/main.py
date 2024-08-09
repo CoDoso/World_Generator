@@ -31,7 +31,7 @@ if __name__ == "__main__":
             "Citys": ""
         }
 
-        with open(f"safes/{str(input('Insert File Name: '))}.json", 'w') as data:
+        with open(f"save-games/{str(input('Insert File Name: '))}.json", 'w') as data:
             json.dump(Game_Data, data)
 
         os.remove("points.json")
